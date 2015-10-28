@@ -3,8 +3,8 @@
 Based on Ubuntu 14.04 LTS. Comes with GNU compiler collection (4.8),
 LLVM 3.7 and build tools. See:
 
-[apt_packages.txt](enironment/resources/apt_packages.txt)
-[apt_packages_llvm.txt](enironment/resources/apt_packages_llvm.txt)
+- [apt_packages.txt](environment/resources/apt_packages.txt)
+- [apt_packages_llvm.txt](environment/resources/apt_packages_llvm.txt)
 
 
 ## How to build the image
