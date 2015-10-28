@@ -6,7 +6,7 @@ DOCKERFILE_NAME=bjodahimgbase
 absolute_repo_path_x="$(readlink -fn -- "$(dirname $0)/.."; echo x)"
 absolute_repo_path="${absolute_repo_path_x%x}"
 cd "$absolute_repo_path"/environment
-docker build -t $REGISTRY_USER/$DOCKERFILE_NAME:$TAG . | tee ../docker_build.log && \
+docker build -t $REGISTRY_USER/$DOCKERFILE_NAME:$TAG . | tee ../$(basename $0).log && \
 docker run --name bjodah-bjodahimgbase-tests -e TERM -v $absolute_repo_path/tests:/tests:ro $REGISTRY_USER/$DOCKERFILE_NAME:$TAG /tests/run_tests.sh
 TEST_EXIT=$(docker wait bjodah-bjodahimgbase-tests)
 docker rm bjodah-bjodahimgbase-tests

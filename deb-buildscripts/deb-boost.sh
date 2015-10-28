@@ -54,14 +54,14 @@ override_dh_auto_build:
 override_dh_auto_test:
 override_dh_auto_install:
 	mkdir -p debian/boost-all/usr debian/boost-all-dev/usr debian/boost-build/usr/bin
-	./b2 link=static,shared --prefix=`pwd`/debian/boost-all/usr/ install
+	./b2 --prefix=`pwd`/debian/boost-all/usr/ install
 	mv debian/boost-all/usr/include debian/boost-all-dev/usr
 	cp b2 debian/boost-build/usr/bin
-	cd tools/build && ./b2 install --prefix=`pwd`/debian/boost-build/usr/ install
+        ./b2 install --prefix=`pwd`/debian/boost-build/usr/ install
 EOF
 #Create some misc files
 echo "8" > debian/compat
 mkdir -p debian/source
 echo "3.0 (quilt)" > debian/source/format
 #Build the package
-nice -n19 ionice -c3 debuild -b
+nice -n19 ionice -c3 debuild -b -us -uc
