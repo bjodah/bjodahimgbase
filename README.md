@@ -19,11 +19,3 @@ $ ./tools/80_build_image.sh
 If tests pass in the last step the Dockerfile is commited in git and
 pushed to github which triggers a trusted build on [docker hub](
 https://hub.docker.com/r/bjodah/bjodahimgbase).
-
-## Uses
-In addition to being the base-image used by
-[bjodahimg](https://github.com/bjodah/bjodahimg),
-this base image is also used to build debian packages used
-there to shorten build times of the image.
-
-See ``deb-buildscripts`` and ``tools/90_build_packages.sh``.

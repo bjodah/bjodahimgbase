@@ -1,5 +1,1 @@
 *.log
-deb-buildscripts/*.tar.gz
-deb-buildscripts/*.tar.bz2
-deb-buildscripts/*-build/
-build/
