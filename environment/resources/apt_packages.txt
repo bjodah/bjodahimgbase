@@ -1,3 +1,3 @@
     build-essential gfortran binutils-dev liblapack-dev \
     python-dev python3-dev autotools-dev libicu-dev zlib1g-dev libbz2-dev libyaml-dev \
-    wget curl git cmake valgrind doxygen devscripts cdbs && \
+    wget curl git cmake valgrind doxygen devscripts cdbs libtool && \
