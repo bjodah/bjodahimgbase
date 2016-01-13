@@ -12,6 +12,7 @@ RUN locale-gen en_US.UTF-8 && \
     apt-get --quiet --assume-yes install \
     build-essential gfortran binutils-dev liblapack-dev \
     python-dev python3-dev autotools-dev libicu-dev zlib1g-dev libbz2-dev libyaml-dev \
+    xorg-dev libgl1-mesa-dev flex bison \
     wget curl git cmake valgrind doxygen devscripts cdbs libtool && \
     wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add - && \
     echo "\ndeb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \ndeb-src http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \n    " >> /etc/apt/sources.list.d/llvm.list && \

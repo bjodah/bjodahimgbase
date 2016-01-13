@@ -1,3 +1,4 @@
     build-essential gfortran binutils-dev liblapack-dev \
     python-dev python3-dev autotools-dev libicu-dev zlib1g-dev libbz2-dev libyaml-dev \
+    xorg-dev libgl1-mesa-dev flex bison \
     wget curl git cmake valgrind doxygen devscripts cdbs libtool && \
