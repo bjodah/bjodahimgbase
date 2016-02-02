@@ -9,19 +9,22 @@ RUN locale-gen en_US.UTF-8 && \
     echo "path-exclude /usr/share/doc/*" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-include /usr/share/doc/*/copyright" >>/etc/dpkg/dpkg.cfg.d/01_nodoc && \
     apt-get update && \
-    apt-get --quiet --assume-yes install \
-    build-essential gfortran binutils-dev liblapack-dev \
+    apt-get --assume-yes install     build-essential gfortran binutils-dev liblapack-dev \
     python-dev python3-dev autotools-dev libicu-dev zlib1g-dev libbz2-dev libyaml-dev \
     xorg-dev libgl1-mesa-dev flex bison \
     wget curl git cmake valgrind doxygen devscripts cdbs libtool \
     python-setuptools python-all python-all-dev python3-setuptools \
-    python3-all python3-all-dev python-stdeb python-numpy python3-numpy && \
-    wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add - && \
-    echo "\ndeb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \ndeb-src http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \n    " >> /etc/apt/sources.list.d/llvm.list && \
-    apt-get update && \
-    apt-get --quiet --assume-yes install \
-    clang-3.7 libclang-common-3.7-dev libclang-3.7-dev libclang1-3.7 \
-    libllvm3.7 lldb-3.7 llvm-3.7 llvm-3.7-dev llvm-3.7-runtime \
-    clang-modernize-3.7 clang-format-3.7 python-clang-3.7 lldb-3.7-dev && \
+    python3-all python3-all-dev python-stdeb python-numpy python3-numpy \ && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN cd /tmp && \
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodaimgbase/v1.3/stdeb-0.8.5.tar.gz && \
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodaimgbase/v1.3/pip-8.0.2.tar.gz && \
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodaimgbase/v1.3/setuptools-19.6.2.tar.gz && \
+    tar xzf setuptools-*.tar.gz  && \
+    cd setuptools-*  && \
+    python2 setup.py install && \
+    python3 setup.py install && \
+    hash -r  && \
+    easy_install-2.7 --always-unzip --allow-hosts=None --find-links file:///tmp/ stdeb pip && \
+    rm -r /tmp/*

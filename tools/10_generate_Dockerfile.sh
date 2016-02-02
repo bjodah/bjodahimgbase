@@ -10,7 +10,7 @@ absolute_repo_path="${absolute_repo_path_x%x}"
 cd "$absolute_repo_path"
 
 APT_PACKAGES=$(cat ./environment/resources/apt_packages.txt)
-APT_PACKAGES_LLVM=$(cat ./environment/resources/apt_packages_llvm.txt)
+# APT_PACKAGES_LLVM=$(cat ./environment/resources/apt_packages_llvm.txt)
 cat <<EOF >environment/Dockerfile
 # DO NOT EDIT, This Dockerfile is generated from ./tools/10_generate_Dockerfile.sh
 FROM ubuntu:14.04.3
@@ -23,16 +23,27 @@ RUN locale-gen en_US.UTF-8 && \\
     echo "path-exclude /usr/share/doc/*" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \\
     echo "path-include /usr/share/doc/*/copyright" >>/etc/dpkg/dpkg.cfg.d/01_nodoc && \\
     apt-get update && \\
-    apt-get --quiet --assume-yes install \\
-${APT_PACKAGES}
-    wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add - && \\
-    echo "\n\
-deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \n\
-deb-src http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \n\
-    " >> /etc/apt/sources.list.d/llvm.list && \\
-    apt-get update && \\
-    apt-get --quiet --assume-yes install \\
-${APT_PACKAGES_LLVM}
+    apt-get --assume-yes install ${APT_PACKAGES} && \\
     apt-get clean && \\
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN cd /tmp && \\
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodaimgbase/v1.3/stdeb-0.8.5.tar.gz && \\
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodaimgbase/v1.3/pip-8.0.2.tar.gz && \\
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodaimgbase/v1.3/setuptools-19.6.2.tar.gz && \\
+    tar xzf setuptools-*.tar.gz  && \\
+    cd setuptools-*  && \\
+    python2 setup.py install && \\
+    python3 setup.py install && \\
+    hash -r  && \\
+    easy_install-2.7 --always-unzip --allow-hosts=None --find-links file:///tmp/ stdeb pip && \\
+    rm -r /tmp/*
 EOF
+
+#     wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add - && \\
+#     echo "\n\
+# deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \n\
+# deb-src http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.7 main \n\
+#     " >> /etc/apt/sources.list.d/llvm.list && \\
+#     apt-get update && \\
+#     apt-get --quiet --assume-yes install \\
+# ${APT_PACKAGES_LLVM}
