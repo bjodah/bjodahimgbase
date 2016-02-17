@@ -23,14 +23,14 @@ RUN locale-gen en_US.UTF-8 && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN \
     cd /tmp && \
-    wget --quiet http://hera.physchem.kth.se/~repo/bjodahimgbase/latest/pypi/setuptools-20.1.1.tar.gz && \
+    wget --quiet http://hera.physchem.kth.se/~repo/bjodahimgbase/v1.3/pypi/setuptools-20.1.1.tar.gz && \
     tar xvzf setuptools-*.tar.gz  && \
     cd setuptools-*  && \
     python2 setup.py install && \
     python3 setup.py install && \
     hash -r  && \
     for FNAME in stdeb-0.8.5.tar.gz ; do \
-        wget --quiet http://hera.physchem.kth.se/~repo/bjodahimgbase/latest/pypi/$FNAME -O /tmp/$FNAME; \
+        wget --quiet http://hera.physchem.kth.se/~repo/bjodahimgbase/v1.3/pypi/$FNAME -O /tmp/$FNAME; \
     done && \
     for PYPKG in stdeb ; do \
         easy_install-2.7 --always-unzip --allow-hosts=None --find-links file:///tmp/ $PYPKG; \
