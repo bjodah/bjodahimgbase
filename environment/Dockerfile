@@ -9,15 +9,16 @@ RUN locale-gen en_US.UTF-8 && \
     echo "path-exclude /usr/share/doc/*" >/etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-include /usr/share/doc/*/copyright" >>/etc/dpkg/dpkg.cfg.d/01_nodoc && \
     apt-get update && \
-    apt-get --assume-yes install     wget curl git cmake scons valgrind doxygen build-essential gfortran \
-    devscripts cdbs libtool flex bison fakeroot \
+    apt-get --assume-yes --no-install-recommends install     wget curl unzip git cmake scons valgrind doxygen build-essential gfortran \
+    devscripts cdbs libtool flex bison fakeroot equivs checkinstall lintian \
     binutils-dev dpkg-dev autotools-dev \
     liblapack-dev libicu-dev zlib1g-dev libbz2-dev libyaml-dev \
     xorg-dev libgl1-mesa-dev \
     libopenmpi-dev libgmp-dev libmpfr-dev libfreetype6-dev libpng12-dev \
     libjpeg-dev libatlas-base-dev libzmq3-dev libxslt1-dev libxml2-dev \
     python-dev python3-dev python-all python-all-dev \
-    python3-all python3-all-dev python-numpy python3-numpy && \
+    python3-all python3-all-dev python-numpy python3-numpy python-setuptools \
+    python3-setuptools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN \
